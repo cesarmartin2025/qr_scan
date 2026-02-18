@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_scan/models/scan_model.dart';
 import 'package:qr_scan/providers/db_provider.dart';
 import 'package:qr_scan/providers/ui_provider.dart';
 import 'package:qr_scan/screens/screens.dart';
@@ -36,9 +37,12 @@ class _HomeScreenBody extends StatelessWidget {
     final uiProvider = Provider.of<UiProvider>(context);
     final currentIndex = uiProvider.selectedMenuOption;
 
-    //Creacion BDD no definitiva
-
+    // Creacion BDD no definitiva
     DbProvider.db.database;
+
+    ScanModel nuevoScan = ScanModel(valor:"https://paucasesnovescifp.cat");
+
+    DbProvider.db.insertScan(nuevoScan);
 
     switch (currentIndex) {
       case 0:
