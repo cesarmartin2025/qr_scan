@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_scan/providers/ui_provider.dart';
 import 'package:qr_scan/screens/screens.dart';
 import 'package:qr_scan/widgets/widgets.dart';
 
@@ -30,8 +32,8 @@ class _HomeScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Canviar per a anar canviant entre pantalles
-    final currentIndex = 1;
+    final uiProvider = Provider.of<UiProvider>(context);
+    final currentIndex = uiProvider.selectedMenuOption;
 
     switch (currentIndex) {
       case 0:
