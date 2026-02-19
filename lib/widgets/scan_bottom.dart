@@ -28,6 +28,7 @@ class ScanButton extends StatelessWidget {
         final scanListProvider = Provider.of<ScanListProvider>(context,listen:false);
 
         scanListProvider.nuevoScan(valorGeo);
+        scanListProvider.nuevoScan(valor);
       },
     );
   }

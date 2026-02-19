@@ -41,7 +41,7 @@ class _HomeScreenBody extends StatelessWidget {
     final uiProvider = Provider.of<UiProvider>(context);
     final currentIndex = uiProvider.selectedMenuOption;
 
-    final scanListProvider = Provider.of<ScanListProvider>(context);
+    final scanListProvider = Provider.of<ScanListProvider>(context,listen: false);
 
     // Creacion BDD no definitiva
    // DbProvider.db.database;
