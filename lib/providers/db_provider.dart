@@ -67,6 +67,59 @@ class DbProvider {
 
   }
 
+  Future<List<ScanModel>> getAllScans() async {
+    final db = await database;
+
+    final resultado = await db.query('Scans');
+
+    return resultado.isNotEmpty ? resultado.map((e) => ScanModel.fromMap(e)).toList() : [];
+  }
+
+  Future<ScanModel?> getScanById(int id) async{
+    final db = await database;
+    final resultado = await db.query('Scans',where : 'id=?',whereArgs: [id]);
+
+    if(resultado.isNotEmpty){
+      return ScanModel.fromMap(resultado.first);
+    }
+    return null;
+  }
+
+  Future<List<ScanModel>> getScanByTipos(String tipos) async {
+    final db = await database;
+
+    final resultado = await db.query('Scans',where: 'tipos=?',whereArgs: [tipos]);
+
+    return resultado.isNotEmpty ? resultado.map((e) => ScanModel.fromMap(e)).toList(): [];
+
+  }  
+
+  Future<int> updateScan(ScanModel nuevoScan) async {
+    final db = await database;
+    
+    final resultado = db.update('Scans', nuevoScan.toMap(), where: 'id=?',whereArgs: [nuevoScan.id]);
+
+    return resultado;
+  }
+
+  Future<int> deleteAllScans() async {
+    final db = await database;
+
+    final resultado = db.rawDelete('''DELETE FROM Scans''');
+
+    return resultado;
+  }
+
+  Future<int> deleteScanById(int id) async {
+    final db = await database;
+
+    final resultado = db.delete('Scans',where: 'id=?',whereArgs: [id]);
+
+    return resultado;
+  }
+
+
+
   Future<void> deleteDatabaseFile() async {
     
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
