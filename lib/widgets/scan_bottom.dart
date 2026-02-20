@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_scan/models/scan_model.dart';
-import 'package:qr_scan/providers/db_provider.dart';
 import 'package:qr_scan/providers/scan_list_provider.dart';
+import 'package:qr_scan/screens/scan_screen.dart';
 import 'package:qr_scan/utils/utils.dart';
 
 class ScanButton extends StatelessWidget {
@@ -15,22 +15,28 @@ class ScanButton extends StatelessWidget {
       child: Icon(
         Icons.filter_center_focus,
       ),
-      onPressed: () {
+      onPressed:  () async {
         print('Botó polsat!');
 
-        //ScanModel nuevoScan = ScanModel(valor:"https://paucasesnovescifp.cat");
+        final String? valorEscaneado = await Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>  const ScannerScreen()),
+        );
 
-        // DbProvider.db.insertScan(nuevoScan);
+        if (valorEscaneado == null) {
+          return; 
+        }
+        
+        
+        final scanListProvider = Provider.of<ScanListProvider>(context, listen: false);
 
-        //String valor = "https://paucasesnovescifp.cat";
+       // String para pruebas http -> String valorEscaneado = "https://paucasesnovescifp.cat";
 
-        String valor = "geo:39.7259514,2.9136474";
+        // String para pruebas geo -> String valorEscaneado = "geo:39.7259514,2.9136474";
+        
+        ScanModel nuevoScan = ScanModel(valor: valorEscaneado);
+        scanListProvider.nuevoScan(valorEscaneado); 
 
-        final scanListProvider =
-            Provider.of<ScanListProvider>(context, listen: false);
-
-        ScanModel nuevoScan = ScanModel(valor: valor);
-        scanListProvider.nuevoScan(valor);
         launchURL(context, nuevoScan);
       },
     );

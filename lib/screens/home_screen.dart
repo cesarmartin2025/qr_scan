@@ -14,10 +14,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Historial'),
+        title: const Text('Historial'),
         actions: [
           IconButton(
-            icon: Icon(Icons.delete_forever),
+            icon: const Icon(Icons.delete_forever),
             onPressed: () {
              final instancia = Provider.of<ScanListProvider>(context,listen: false);
              instancia.borrarTodosLosScans();
@@ -25,9 +25,9 @@ class HomeScreen extends StatelessWidget {
           )
         ],
       ),
-      body: _HomeScreenBody(),
+      body: const _HomeScreenBody(),
       bottomNavigationBar: CustomNavigationBar(),
-      floatingActionButton: ScanButton(),
+      floatingActionButton: const ScanButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
@@ -53,15 +53,15 @@ class _HomeScreenBody extends StatelessWidget {
     switch (currentIndex) {
       case 0:
         scanListProvider.cargarScansPorTipos('geo');
-        return MapasScreen();
+        return const MapasScreen();
 
       case 1:
         scanListProvider.cargarScansPorTipos('http');
-        return DireccionsScreen();
+        return const DireccionsScreen();
 
       default:
         scanListProvider.cargarScansPorTipos('geo');
-        return MapasScreen();
+        return const MapasScreen();
     }
   }
 }
