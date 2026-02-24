@@ -74,15 +74,11 @@ class _MapaScreenState extends State<MapaScreen> {
                 } else {
                   currentTilt = 0.0;
                 }
-                // 4. Obtenemos el controlador y aplicamos la inclinación
                 final GoogleMapController controller = await _controller.future;
-
-                // Obtenemos la posición actual para no perder el centro ni el zoom
-                // Nota: Si usas la posición del scan, siempre volverá al centro del QR
                 controller.animateCamera(
                     CameraUpdate.newCameraPosition(CameraPosition(
                   target: scan
-                      .getLatLng(), // O puedes obtener la posición actual del mapa
+                      .getLatLng(), 
                   tilt: currentTilt,
                   zoom: 17,
                 )));
@@ -108,7 +104,6 @@ class _MapaScreenState extends State<MapaScreen> {
               title: 'Ubicación seleccionada',
               snippet:
                   'Lat : ${posicionClickada.latitude} Long : ${posicionClickada.longitude}',
-              onTap: () {},
             ),
             icon:
                 BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
